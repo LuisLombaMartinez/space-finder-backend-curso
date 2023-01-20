@@ -1,17 +1,38 @@
 import { Stack } from 'aws-cdk-lib';
+import { LambdaIntegration } from 'aws-cdk-lib/aws-apigateway';
 import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb';
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import { join } from 'path';
 
+export interface TableProps {
+    tableName: string,
+    primaryKey: string,
+    sortKey?: string,
+    createLambdaPath?: string,
+    readLambdaPath?: string,
+    updateLambdaPath?: string,
+    deleteLambdaPath?: string
+}
 
 export class GenericTable {
 
-    private name: string;
-    private primaryKey: string;
     private stack: Stack
     private table: Table;
+    private props: TableProps;
 
-    public constructor(name: string, primaryKey: string, stack: Stack){
-        this.name = name;
-        this.primaryKey = primaryKey;
+    private createLambda: NodejsFunction | undefined;
+    private readLambda: NodejsFunction | undefined;
+    private updateLambda: NodejsFunction | undefined;
+    private deleteLambda: NodejsFunction | undefined;
+
+    public createLambdaIntegration: LambdaIntegration;
+    public readLambdaIntegration: LambdaIntegration;
+    public updateLambdaIntegration: LambdaIntegration;
+    public deleteLambdaIntegration: LambdaIntegration;
+
+
+    public constructor(stack: Stack, props: TableProps){
+        this.props = props;
         this.stack = stack;
         this.initialize();
     }
@@ -21,12 +42,20 @@ export class GenericTable {
     }
 
     private createTable(){
-        this.table = new Table(this.stack, this.name, {
+        this.table = new Table(this.stack, this.props.tableName, {
             partitionKey: {
-                name: this.primaryKey,
+                name: this.props.primaryKey,
                 type: AttributeType.STRING
             },
-            tableName: this.name
+            tableName: this.props.tableName
+        })
+    }
+
+    private createSingleLambda(lambdaName: string) : NodejsFunction {
+        const lambdaId = `${this.props.tableName}-${lambdaName}`
+        return new NodejsFunction(this.stack, lambdaId, {
+            entry: (join(__dirname, '..', 'services', this.props.tableName, `${lambdaName}.ts`)),
+            handler: 'handler'
         })
     }
 }
