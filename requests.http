@@ -1,19 +1,35 @@
 @endpoint = https://zi9b8xsi91.execute-api.eu-west-1.amazonaws.com/prod
 
-GET {{endpoint}}/hello/
-###
-
-GET {{endpoint}}/spaces?spaceId=27ec7a05-6e03-4d38-8e5a-4954673143a1
-###
-
-GET {{endpoint}}/spaces?location=London
-###
-
+# CREATE
 POST {{endpoint}}/spaces/
 Content-Type: application/json
 
 {
-    "location": "London",
-    "name": "Best location"
+    "location": "Rome",
+    "comment": "Good Pizza"
 }
 ###
+
+# READ ALL
+GET {{endpoint}}/spaces
+###
+
+# READ BY ID
+GET {{endpoint}}/spaces?spaceId=895af759-a4a2-43fd-8715-7209b2ea6567
+###
+
+# READ BY LOCATION
+GET {{endpoint}}/spaces?location=London
+###
+
+# UPDATE
+PUT {{endpoint}}/spaces?spaceId=6a03bae8-480c-44ed-a5a0-619f2de45a9e
+Content-Type: application/json
+
+{
+    "location": "Updated Location"
+}
+###
+
+# DELETE
+DELETE {{endpoint}}/spaces?spaceId=6a03bae8-480c-44ed-a5a0-619f2de45a9e

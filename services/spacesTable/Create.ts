@@ -15,10 +15,6 @@ async function handler(event: APIGatewayProxyEvent, context: Context): Promise<A
     const intem = typeof event.body == 'object'? event.body: JSON.parse(event.body);
     intem.spaceId = v4();
 
-    // const intem = {
-    //     spaceId: v4()
-    // }
-
     try {
         await dbClient.put({
             TableName: TABLE_NAME!,
