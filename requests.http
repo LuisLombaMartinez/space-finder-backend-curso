@@ -33,3 +33,4 @@ Content-Type: application/json
 
 # DELETE
 DELETE {{endpoint}}/spaces?spaceId=6a03bae8-480c-44ed-a5a0-619f2de45a9e
+###

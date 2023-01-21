@@ -23,7 +23,8 @@ async function handler(event: APIGatewayProxyEvent, context: Context): Promise<A
             result.body = await scanTable();
         }
     } catch (error: any) {
-        result.body = error.message
+        result.body = error.message;
+        result.statusCode = 500;
     }
 
 
