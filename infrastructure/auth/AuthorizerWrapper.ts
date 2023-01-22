@@ -2,13 +2,14 @@ import { CfnOutput } from "aws-cdk-lib";
 import { CognitoUserPoolsAuthorizer, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { UserPool, UserPoolClient, CfnUserPoolGroup } from "aws-cdk-lib/aws-cognito";
 import { Construct } from "constructs";
-
+import { IdentityPoolWrapper } from "./IdentityPoolWrapper";
 
 
 export class AuthorizerWrapper {
     private userPoolName: string;
     private userPoolClientName: string;
     private authorizerName: string;
+    private identityPoolName: string;
 
     private scope: Construct;
     private api: RestApi;
@@ -17,10 +18,13 @@ export class AuthorizerWrapper {
     private userPoolClient: UserPoolClient;
     public authorizer: CognitoUserPoolsAuthorizer;
 
-    constructor(scope: Construct, api: RestApi, userPoolName: string, userPoorlClientName: string, authorizerName: string) {
+    private identityPoolWrapper: IdentityPoolWrapper;
+
+    constructor(scope: Construct, api: RestApi, userPoolName: string, userPoorlClientName: string, authorizerName: string, identityPoolName: string) {
         this.userPoolName = userPoolName;
         this.userPoolClientName = userPoorlClientName;
         this.authorizerName = authorizerName;
+        this.identityPoolName = identityPoolName;
         this.scope = scope;
         this.api = api;
         this.initialize();
@@ -30,7 +34,8 @@ export class AuthorizerWrapper {
         this.createUserPool();
         this.addUserPoolClient();
         this.createAuthorizer();
-        this.createAdminGroup();
+        this.initializeIdentityPoolWrapper();
+        this.createAdminGroup(); // needs initializeIdentityPoolWrapper to be executed first
     }
 
     private createUserPool(){
@@ -75,7 +80,17 @@ export class AuthorizerWrapper {
     private createAdminGroup() {
         new CfnUserPoolGroup(this.scope, 'admin', {
             groupName: 'admin',
-            userPoolId: this.userPool.userPoolId
+            userPoolId: this.userPool.userPoolId,
+            roleArn: this.identityPoolWrapper.adminRole.roleArn
         })
+    }
+
+    private initializeIdentityPoolWrapper(){
+        this.identityPoolWrapper = new IdentityPoolWrapper(
+            this.scope,
+            this.userPool,
+            this.userPoolClient,
+            this.identityPoolName
+        )
     }
 }

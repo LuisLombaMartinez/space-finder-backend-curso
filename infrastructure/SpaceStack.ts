@@ -25,7 +25,7 @@ export class SpaceStack extends Stack {
     constructor(scope: Construct, id: string, props: StackProps) {
         super(scope, id, props)
 
-        this.authorizer = new AuthorizerWrapper(this, this.api, 'SpaceUserPool', 'SpaceUserPool-client', 'SpaceUserAuthorizer');
+        this.authorizer = new AuthorizerWrapper(this, this.api, 'SpaceUserPool', 'SpaceUserPool-client', 'SpaceUserAuthorizer', 'SpaceIdentityPool');
 
         const helloLambdaNodeJs = new NodejsFunction(this, 'helloLambdaNodeJs', {
             entry: (join(__dirname, '..', 'services', 'node-lambda', 'hello.ts')),
