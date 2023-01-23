@@ -13,6 +13,7 @@ export class AuthorizerWrapper {
 
     private scope: Construct;
     private api: RestApi;
+    private bucketArn: string;
 
     private userPool: UserPool;
     private userPoolClient: UserPoolClient;
@@ -20,13 +21,14 @@ export class AuthorizerWrapper {
 
     private identityPoolWrapper: IdentityPoolWrapper;
 
-    constructor(scope: Construct, api: RestApi, userPoolName: string, userPoorlClientName: string, authorizerName: string, identityPoolName: string) {
+    constructor(scope: Construct, api: RestApi, bucketArn: string, userPoolName: string, userPoorlClientName: string, authorizerName: string, identityPoolName: string) {
+        this.scope = scope;
+        this.api = api;
+        this.bucketArn = bucketArn;
         this.userPoolName = userPoolName;
         this.userPoolClientName = userPoorlClientName;
         this.authorizerName = authorizerName;
         this.identityPoolName = identityPoolName;
-        this.scope = scope;
-        this.api = api;
         this.initialize();
     }
 
@@ -90,6 +92,7 @@ export class AuthorizerWrapper {
             this.scope,
             this.userPool,
             this.userPoolClient,
+            this.bucketArn,
             this.identityPoolName
         )
     }

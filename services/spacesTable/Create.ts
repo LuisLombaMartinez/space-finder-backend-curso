@@ -1,7 +1,7 @@
 import { DynamoDB } from "aws-sdk";
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 import { MissingFieldError, validateAsSpaceEntry } from "../shared/InputValidator";
-import { generateRandomId, getEventBody } from "../shared/Utils";
+import { generateRandomId, getEventBody, addCorsHeader } from "../shared/Utils";
 
 const TABLE_NAME = process.env.TABLE_NAME;
 const dbClient = new DynamoDB.DocumentClient();
@@ -12,7 +12,7 @@ async function handler(event: APIGatewayProxyEvent, context: Context): Promise<A
         statusCode: 200,
         body: 'Hello from DynamoDB'
     }
-
+    addCorsHeader(result);
     try {
         const intem = getEventBody(event);
         intem.spaceId = generateRandomId();
@@ -21,7 +21,9 @@ async function handler(event: APIGatewayProxyEvent, context: Context): Promise<A
             TableName: TABLE_NAME!,
             Item: intem
         }).promise()
-        result.body = JSON.stringify(`Created item with id: ${intem.spaceId}`);
+        result.body = JSON.stringify({
+            id: intem.spaceId
+        });
     } catch (error: any) {
         if (error instanceof MissingFieldError) {
             result.statusCode = 403;

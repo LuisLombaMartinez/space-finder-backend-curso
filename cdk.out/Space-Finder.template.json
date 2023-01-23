@@ -64,7 +64,7 @@
     "aws:cdk:path": "Space-Finder/SpaceApi/Account"
    }
   },
-  "SpaceApiDeploymentA2B9E76581623f6599f86cccdc545073c61643a2": {
+  "SpaceApiDeploymentA2B9E765e90f13499b731ec99193d35fec2fa9c4": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "RestApiId": {
@@ -73,8 +73,6 @@
     "Description": "Automatically created by the RestApi construct"
    },
    "DependsOn": [
-    "SpaceApihelloGET65983C27",
-    "SpaceApihelloDF776653",
     "SpaceApispacesDELETEC413A31B",
     "SpaceApispacesGET6C083CB2",
     "SpaceApispacesPOST1DDB27B3",
@@ -92,7 +90,7 @@
      "Ref": "SpaceApi1B373D2B"
     },
     "DeploymentId": {
-     "Ref": "SpaceApiDeploymentA2B9E76581623f6599f86cccdc545073c61643a2"
+     "Ref": "SpaceApiDeploymentA2B9E765e90f13499b731ec99193d35fec2fa9c4"
     },
     "StageName": "prod"
    },
@@ -101,154 +99,6 @@
    ],
    "Metadata": {
     "aws:cdk:path": "Space-Finder/SpaceApi/DeploymentStage.prod/Resource"
-   }
-  },
-  "SpaceApihelloDF776653": {
-   "Type": "AWS::ApiGateway::Resource",
-   "Properties": {
-    "ParentId": {
-     "Fn::GetAtt": [
-      "SpaceApi1B373D2B",
-      "RootResourceId"
-     ]
-    },
-    "PathPart": "hello",
-    "RestApiId": {
-     "Ref": "SpaceApi1B373D2B"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "Space-Finder/SpaceApi/Default/hello/Resource"
-   }
-  },
-  "SpaceApihelloGETApiPermissionSpaceFinderSpaceApi1F575F27GEThelloCB910EDF": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "helloLambdaNodeJs14E63891",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "SpaceApi1B373D2B"
-       },
-       "/",
-       {
-        "Ref": "SpaceApiDeploymentStageprodBB8A31FE"
-       },
-       "/GET/hello"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "Space-Finder/SpaceApi/Default/hello/GET/ApiPermission.SpaceFinderSpaceApi1F575F27.GET..hello"
-   }
-  },
-  "SpaceApihelloGETApiPermissionTestSpaceFinderSpaceApi1F575F27GEThello193CC3E0": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "helloLambdaNodeJs14E63891",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "SpaceApi1B373D2B"
-       },
-       "/test-invoke-stage/GET/hello"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "Space-Finder/SpaceApi/Default/hello/GET/ApiPermission.Test.SpaceFinderSpaceApi1F575F27.GET..hello"
-   }
-  },
-  "SpaceApihelloGET65983C27": {
-   "Type": "AWS::ApiGateway::Method",
-   "Properties": {
-    "HttpMethod": "GET",
-    "ResourceId": {
-     "Ref": "SpaceApihelloDF776653"
-    },
-    "RestApiId": {
-     "Ref": "SpaceApi1B373D2B"
-    },
-    "AuthorizationType": "COGNITO_USER_POOLS",
-    "AuthorizerId": {
-     "Ref": "SpaceUserAuthorizer401AE1AA"
-    },
-    "Integration": {
-     "IntegrationHttpMethod": "POST",
-     "Type": "AWS_PROXY",
-     "Uri": {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":apigateway:",
-        {
-         "Ref": "AWS::Region"
-        },
-        ":lambda:path/2015-03-31/functions/",
-        {
-         "Fn::GetAtt": [
-          "helloLambdaNodeJs14E63891",
-          "Arn"
-         ]
-        },
-        "/invocations"
-       ]
-      ]
-     }
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "Space-Finder/SpaceApi/Default/hello/GET/Resource"
    }
   },
   "SpaceApispacesD5EE855F": {
@@ -918,7 +768,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "467c12e80d2c5e7b598e1202e3284b94a2bf3dd20c17b1919d8407c4f47fc2a9.zip"
+     "S3Key": "c2396873a53e12679b6c6c1a87f6b54e9fe077d50d764bcf3bd0f7ef00c4d51f.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -943,7 +793,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "Space-Finder/SpacesTable-Create/Resource",
-    "aws:asset:path": "asset.467c12e80d2c5e7b598e1202e3284b94a2bf3dd20c17b1919d8407c4f47fc2a9",
+    "aws:asset:path": "asset.c2396873a53e12679b6c6c1a87f6b54e9fe077d50d764bcf3bd0f7ef00c4d51f",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1043,7 +893,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "10454ced859032bfd94fe7998fbe8b17f6c2d19e4e7d878476d862ce296a1d4b.zip"
+     "S3Key": "160df778ddbcde59483553780b62849c1d04056f1530b4cf5d4c0cf02728d9ed.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -1068,7 +918,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "Space-Finder/SpacesTable-Read/Resource",
-    "aws:asset:path": "asset.10454ced859032bfd94fe7998fbe8b17f6c2d19e4e7d878476d862ce296a1d4b",
+    "aws:asset:path": "asset.160df778ddbcde59483553780b62849c1d04056f1530b4cf5d4c0cf02728d9ed",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1165,7 +1015,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "ba4e7f61c4618f9a4d9071514c2e17385f31213cb9bddf3e03b9d86ae9c50f42.zip"
+     "S3Key": "f94f61576364b73715b4929b128fa078092ae84e4a386e9ff15c74f6c794b600.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -1190,7 +1040,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "Space-Finder/SpacesTable-Update/Resource",
-    "aws:asset:path": "asset.ba4e7f61c4618f9a4d9071514c2e17385f31213cb9bddf3e03b9d86ae9c50f42",
+    "aws:asset:path": "asset.f94f61576364b73715b4929b128fa078092ae84e4a386e9ff15c74f6c794b600",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1287,7 +1137,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "44c2c555c2f3571dadd349b34d211641d1c956cd4677c5ad4a607bb9f7420086.zip"
+     "S3Key": "edcc8451392e6899412f56e2ff8bdd327dc776109f3f15026444d840dd5269da.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -1312,9 +1162,57 @@
    ],
    "Metadata": {
     "aws:cdk:path": "Space-Finder/SpacesTable-Delete/Resource",
-    "aws:asset:path": "asset.44c2c555c2f3571dadd349b34d211641d1c956cd4677c5ad4a607bb9f7420086",
+    "aws:asset:path": "asset.edcc8451392e6899412f56e2ff8bdd327dc776109f3f15026444d840dd5269da",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
+   }
+  },
+  "spacesphotos2389D37E": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketName": {
+     "Fn::Join": [
+      "",
+      [
+       "spaces-photos-",
+       {
+        "Fn::Select": [
+         2,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Ref": "AWS::StackId"
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     ]
+    },
+    "CorsConfiguration": {
+     "CorsRules": [
+      {
+       "AllowedHeaders": [
+        "*"
+       ],
+       "AllowedMethods": [
+        "HEAD",
+        "GET",
+        "PUT"
+       ],
+       "AllowedOrigins": [
+        "*"
+       ]
+      }
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Space-Finder/spaces-photos/Resource"
    }
   },
   "SpaceUserPool6AB542DC": {
@@ -1536,9 +1434,25 @@
     "PolicyDocument": {
      "Statement": [
       {
-       "Action": "s3:ListAllMyBuckets",
+       "Action": [
+        "s3:PutObject",
+        "s3:PutObjectAcl"
+       ],
        "Effect": "Allow",
-       "Resource": "*"
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "spacesphotos2389D37E",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
       }
      ],
      "Version": "2012-10-17"
@@ -1620,102 +1534,10 @@
     "aws:cdk:path": "Space-Finder/admin"
    }
   },
-  "helloLambdaNodeJsServiceRole17C143C3": {
-   "Type": "AWS::IAM::Role",
-   "Properties": {
-    "AssumeRolePolicyDocument": {
-     "Statement": [
-      {
-       "Action": "sts:AssumeRole",
-       "Effect": "Allow",
-       "Principal": {
-        "Service": "lambda.amazonaws.com"
-       }
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "ManagedPolicyArns": [
-     {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-       ]
-      ]
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "Space-Finder/helloLambdaNodeJs/ServiceRole/Resource"
-   }
-  },
-  "helloLambdaNodeJsServiceRoleDefaultPolicy14D90D8C": {
-   "Type": "AWS::IAM::Policy",
-   "Properties": {
-    "PolicyDocument": {
-     "Statement": [
-      {
-       "Action": "s3:ListAllMyBuckets",
-       "Effect": "Allow",
-       "Resource": "*"
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "PolicyName": "helloLambdaNodeJsServiceRoleDefaultPolicy14D90D8C",
-    "Roles": [
-     {
-      "Ref": "helloLambdaNodeJsServiceRole17C143C3"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "Space-Finder/helloLambdaNodeJs/ServiceRole/DefaultPolicy/Resource"
-   }
-  },
-  "helloLambdaNodeJs14E63891": {
-   "Type": "AWS::Lambda::Function",
-   "Properties": {
-    "Code": {
-     "S3Bucket": {
-      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
-     },
-     "S3Key": "8075665772ffc54e368da4085117fec818d5526c7c2f26a40c6da7a5cbb93e5f.zip"
-    },
-    "Role": {
-     "Fn::GetAtt": [
-      "helloLambdaNodeJsServiceRole17C143C3",
-      "Arn"
-     ]
-    },
-    "Environment": {
-     "Variables": {
-      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
-     }
-    },
-    "Handler": "index.handler",
-    "Runtime": "nodejs14.x"
-   },
-   "DependsOn": [
-    "helloLambdaNodeJsServiceRoleDefaultPolicy14D90D8C",
-    "helloLambdaNodeJsServiceRole17C143C3"
-   ],
-   "Metadata": {
-    "aws:cdk:path": "Space-Finder/helloLambdaNodeJs/Resource",
-    "aws:asset:path": "asset.8075665772ffc54e368da4085117fec818d5526c7c2f26a40c6da7a5cbb93e5f",
-    "aws:asset:is-bundled": true,
-    "aws:asset:property": "Code"
-   }
-  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2WRQU8CMRCFfwv3UgUN9wWj8aAS1DMp7bgMtJ3NtpWsm/3vtlsWAU/zvZfOpG9mymcTfjsSBzeWaj/WuOHtuxdyz6K1bkWFpfBwEA1vV+B8USFbfNkzLKSkYD17gEpTYyBidM9UnFZC8jLEVgq1hLlwf+I4M/ML+C2pZA1EpUVPnw7qJZF2RYh2jT9Q9x84qY6hMPGfpPPAVJekUTZJZuqYFmajBG+TBbVB55BsevAYrPSRO6YaKwypuIoPscnDehia15YU7Bx/7cvQx9zdWjgH3vEilaj5PMg9+D6rzCl4O+RIY088wELjcYX/nWcVAX0zNJ/rFLbw8XBbc9X/VFOouu5i12/BV8Gz/pvpLGjLixNEXpBVmNeR0vKdu/mezPjknk9HO4c4ruPV0QBf5foLgZWVZ0kCAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2WSTVPCMBCGfwv3EAUd7gVHx4PKoJ6ZkKxlIcl2mkSmdvrfTRqKgKd93jfdnf3olM8m/HYkDm4s1X6sccPbdy/knkVr3YoKS+HhIBrersD5okK2+LJnWEhJwXr2AJWmxkDE6J6pWK2E5GWIqRRqCXPh/sSxZuYX8FtSyRqISouePh3USyLtihDtGn+g7hs4qY6hMLFP0rlgikvSKJskM3VMC7NRgrfJgtqgc0g2ffAYrPSRO6YaKwypuIoPscnFehiS15YU7Bx/7cOQx9zdWjgH3vEihah5Ow9yD74fNmMqlqljMg/G22G09HjiARYaj1v97zyrCOibIflcp/kLH2+5NVf5TzWFqusu1v8WfBU86ztPl0JbXlwl8oKswryhtAC+czffkxmf3PPpaOcQx3X8EdAAX+X4C/bNXGFcAgAA"
    },
    "Metadata": {
     "aws:cdk:path": "Space-Finder/CDKMetadata/Default"
@@ -1748,6 +1570,11 @@
       "/"
      ]
     ]
+   }
+  },
+  "spacesphotosbucketname": {
+   "Value": {
+    "Ref": "spacesphotos2389D37E"
    }
   },
   "UserPoolId": {

@@ -1,6 +1,6 @@
 import { DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
-import { getEventBody } from '../shared/Utils';
+import { addCorsHeader, getEventBody } from '../shared/Utils';
 
 const TABLE_NAME = process.env.TABLE_NAME as string;
 const PRIMARY_KEY = process.env.PRIMARY_KEY as string;
@@ -12,7 +12,7 @@ async function handler(event: APIGatewayProxyEvent, context: Context): Promise<A
         statusCode: 200,
         body: 'Hello from DYnamoDb'
     }
-
+    addCorsHeader(result);
     try {
         const requestBody = getEventBody(event);
     const spaceId = event.queryStringParameters?.[PRIMARY_KEY]
